@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Сюрприз ❤️</title>
 <style>
   /* --- БАЗОВЫЕ СТИЛИ --- */
@@ -13,7 +13,7 @@
     --text:#3b2b2b;
   }
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Tahoma, sans-serif;color:var(--text);background:linear-gradient(135deg,#ffdede,#fff4f6);-webkit-font-smoothing:antialiased;}
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Tahoma, sans-serif;color:var(--text);background:linear-gradient(135deg,#ffdede,#fff4f6);-webkit-font-smoothing:antialiased;overflow:hidden;}
   a{color:inherit}
 
   /* --- ЗАГРУЗЧИК --- */
@@ -34,7 +34,15 @@
   @keyframes pulse{0%{transform:scale(.95)}50%{transform:scale(1.07)}100%{transform:scale(.95)}}
 
   /* --- ОБЩАЯ СЕТКА ЭКРАНОВ --- */
-  .screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center;transition:opacity .6s ease, transform .6s ease;}
+  .screen{
+    position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+    padding:20px 15px;transition:opacity .6s ease, transform .6s ease;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  .screen-content{
+    width:100%;max-width:500px;display:flex;flex-direction:column;align-items:center;
+    flex:1;justify-content:center;
+  }
   .hidden{opacity:0;pointer-events:none;transform:translateY(10px);visibility:hidden}
   .visible{opacity:1;pointer-events:auto;visibility:visible;transform:translateY(0)}
 
@@ -52,37 +60,38 @@
   }
 
   /* --- КНОПКИ / ФОРМЫ --- */
-  h1{font-size:40px;margin:6px 0 10px}
-  p.lead{font-size:18px;line-height:1.45;color:rgba(59,43,43,.92);max-width:720px}
+  h1{font-size:32px;margin:10px 0 15px;text-align:center;line-height:1.2;}
+  p.lead{font-size:16px;line-height:1.4;color:rgba(59,43,43,.92);text-align:center;margin:10px 0;}
   input[type="password"]{
-    width:230px;padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,.08);font-size:18px;text-align:center;
+    width:100%;max-width:280px;padding:16px;border-radius:12px;border:1px solid rgba(0,0,0,.08);font-size:18px;text-align:center;
     box-shadow:0 6px 18px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
     outline:none;transition:transform .15s ease;
-    -webkit-appearance:none;
+    -webkit-appearance:none;margin:10px 0;
   }
   input[type="password"]:focus{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
   .btn{
-    display:inline-block;margin-top:14px;padding:14px 32px;border-radius:999px;background:linear-gradient(180deg,var(--accent),var(--accent-2));
+    display:inline-block;margin:8px 0;padding:16px 24px;border-radius:999px;background:linear-gradient(180deg,var(--accent),var(--accent-2));
     color:#fff;border:none;font-weight:600;cursor:pointer;font-size:16px;box-shadow:0 8px 28px rgba(255,123,123,.18);transition:transform .12s ease,box-shadow .12s;
-    min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+    min-height:50px;min-width:200px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;text-align:center;
   }
   .btn:active{transform:translateY(2px)}
   .btn.ghost{background:transparent;color:var(--accent);box-shadow:none;border:2px solid rgba(255,123,123,.12)}
 
-  .error{color:#c74343;margin-top:8px;min-height:18px}
+  .error{color:#c74343;margin:8px 0;min-height:20px;text-align:center;}
 
   /* --- СТИЛИ ДЛЯ ТЕКСТА ПОЗДРАВЛЕНИЯ --- */
   .birthday-text {
-    max-width:720px;text-align:left;line-height:1.6;
+    width:100%;max-width:500px;text-align:left;line-height:1.5;
+    margin:15px 0;padding:0 10px;
   }
   .birthday-text .lead {
-    font-size:17px;margin-bottom:20px;text-align:left;color:rgba(59,43,43,.92);
+    font-size:15px;margin-bottom:15px;text-align:left;color:rgba(59,43,43,.92);
   }
   .birthday-text .lead:first-child {
-    text-align:center;font-size:18px;font-weight:500;
+    text-align:center;font-size:16px;font-weight:500;
   }
   .birthday-text .signature {
-    text-align:right;font-style:italic;margin-top:30px;font-weight:500;
+    text-align:right;font-style:italic;margin-top:20px;font-weight:500;
   }
   .birthday-text em {
     color:var(--accent);font-style:italic;font-weight:500;
@@ -90,35 +99,41 @@
 
   /* --- ГАЛЕРЕЯ / СЛАЙДЕР --- */
   .slider{
-    width:95%;max-width:540px;height:auto;display:flex;align-items:center;justify-content:center;gap:12px;
-    position:relative;padding:0 10px;
+    width:100%;max-width:400px;height:auto;display:flex;align-items:center;justify-content:center;gap:8px;
+    position:relative;padding:0 5px;margin:10px 0;
   }
   .slide-image{
-    width:100%;max-width:480px;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .4s cubic-bezier(.2,.9,.2,1), filter .4s ease;
+    width:100%;max-width:350px;border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,.15);transition:transform .4s cubic-bezier(.2,.9,.2,1), filter .4s ease;
     transform-origin:center center;display:block;
   }
-  .slide-image.enlarge{transform:scale(1.03);filter:brightness(1.02)}
+  .slide-image.enlarge{transform:scale(1.02);filter:brightness(1.01)}
   .arrow{
     position:relative;display:flex;align-items:center;justify-content:center;
-    width:48px;height:48px;border-radius:12px;min-width:48px;
-    border:none;background:rgba(255,255,255,.9);box-shadow:0 6px 20px rgba(0,0,0,.15);cursor:pointer;font-size:22px;color:var(--accent);
-    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+    width:44px;height:44px;border-radius:10px;min-width:44px;
+    border:none;background:rgba(255,255,255,.95);box-shadow:0 4px 15px rgba(0,0,0,.12);cursor:pointer;font-size:20px;color:var(--accent);
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;flex-shrink:0;
   }
 
-  .controls{margin-top:18px;display:flex;gap:12px;align-items:center;justify-content:center}
+  .controls{
+    margin:15px 0;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;
+    width:100%;max-width:300px;
+  }
   .back-btn{
-    margin-top:26px;padding:12px 26px;border-radius:14px;border:2px solid rgba(255,123,123,.12);background:transparent;color:var(--accent);font-weight:600;cursor:pointer;
-    min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+    padding:14px 24px;border-radius:12px;border:2px solid rgba(255,123,123,.12);background:transparent;color:var(--accent);font-weight:600;cursor:pointer;
+    min-height:48px;min-width:200px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;text-align:center;
   }
 
   /* --- МУЗЫКА ПАНЕЛЬ --- */
   .audio-bar{
-    position:fixed;left:50%;bottom:20px;transform:translateX(-50%);
+    position:fixed;left:50%;bottom:15px;transform:translateX(-50%);
     z-index:40;background:linear-gradient(90deg, rgba(255,255,255,.95), rgba(255,255,255,.85));
-    padding:10px 16px;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;gap:12px;align-items:center;
-    max-width:90vw;
+    padding:10px 16px;border-radius:14px;box-shadow:0 6px 25px rgba(0,0,0,.15);display:flex;gap:12px;align-items:center;
+    max-width:90vw;backdrop-filter:blur(10px);
   }
-  .audio-bar button{border:none;background:transparent;cursor:pointer;font-size:18px;color:var(--accent);touch-action:manipulation;}
+  .audio-bar button{
+    border:none;background:transparent;cursor:pointer;font-size:16px;color:var(--accent);
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;padding:5px;
+  }
 
   /* --- Курсор-сердечко --- */
   @media (hover: hover) {
@@ -142,65 +157,74 @@
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)}}
 
   /* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ --- */
-  @media (max-width: 768px) {
-    h1{font-size:32px;margin:4px 0 8px}
-    p.lead{font-size:16px;line-height:1.5;max-width:90%}
+  @media (max-width: 480px) {
+    .screen{padding:15px 10px;}
+    
+    h1{font-size:28px;margin:8px 0 12px;}
+    p.lead{font-size:15px;margin:8px 0;}
+    
+    .birthday-text{
+      margin:10px 0;padding:0 5px;
+    }
     
     .birthday-text .lead{
-      font-size:15px;margin-bottom:16px;text-align:left;
+      font-size:14px;margin-bottom:12px;
     }
     
     .birthday-text .lead:first-child{
-      font-size:16px;text-align:center;
+      font-size:15px;
     }
     
     input[type="password"]{
-      width:280px;padding:14px 16px;font-size:16px;
-    }
-    
-    .screen{padding:20px 15px;}
-    
-    .slider{gap:8px;}
-    
-    .controls{
-      margin-top:15px;
-      flex-direction:column;
-      gap:8px;
-    }
-    
-    .btn.ghost, .back-btn{
-      padding:12px 24px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1{font-size:28px;}
-    p.lead{font-size:15px;}
-    
-    .birthday-text .lead{
-      font-size:14px;margin-bottom:14px;
-    }
-    
-    .slider{max-width:100%;}
-    .slide-image{max-width:100%;border-radius:12px;}
-    
-    .arrow{
-      width:42px;height:42px;font-size:20px;
-    }
-    
-    .audio-bar{
-      bottom:15px;padding:8px 14px;font-size:13px;
+      max-width:260px;padding:14px;font-size:16px;margin:8px 0;
     }
     
     .btn, .back-btn{
-      padding:12px 20px;font-size:15px;
+      padding:14px 20px;min-height:46px;min-width:180px;font-size:15px;margin:6px 0;
+    }
+    
+    .slider{
+      max-width:100%;gap:6px;margin:8px 0;
+    }
+    
+    .slide-image{
+      max-width:300px;border-radius:10px;
+    }
+    
+    .arrow{
+      width:40px;height:40px;font-size:18px;
+    }
+    
+    .audio-bar{
+      bottom:12px;padding:8px 14px;font-size:14px;
+    }
+    
+    .controls{
+      margin:12px 0;gap:8px;
     }
   }
 
   @media (max-width: 360px) {
     h1{font-size:24px;}
-    input[type="password"]{width:250px;}
-    .slider{gap:6px;}
+    p.lead{font-size:14px;}
+    
+    .birthday-text .lead{
+      font-size:13px;margin-bottom:10px;
+    }
+    
+    input[type="password"]{max-width:240px;}
+    
+    .btn, .back-btn{
+      min-width:160px;padding:12px 18px;font-size:14px;
+    }
+    
+    .slide-image{max-width:280px;}
+  }
+
+  /* --- ОСОБЫЕ СТИЛИ ДЛЯ ВЕРТИКАЛЬНЫХ ЭКРАНОВ --- */
+  @media (max-height: 700px) {
+    .screen-content{justify-content:flex-start;padding-top:20px;}
+    .birthday-text{max-height:60vh;overflow-y:auto;}
   }
 </style>
 </head>
@@ -223,59 +247,65 @@
 
   <!-- Экран ввода пароля -->
   <main id="password-screen" class="screen visible fade-in" role="main" aria-labelledby="title-pass">
-    <h1 id="title-pass">Сюрприз</h1>
-    <p class="lead">Чтобы открыть — введи нашу дату знакомства в формате <strong>ДДММГГ</strong></p>
-    <input id="pwd" type="password" placeholder="Например 010203" autocomplete="off" inputmode="numeric" />
-    <button class="btn" id="enterBtn" onclick="tryPassword()">Войти</button>
-    <div class="error" id="err"></div>
+    <div class="screen-content">
+      <h1 id="title-pass">Сюрприз</h1>
+      <p class="lead">Чтобы открыть — введи нашу дату знакомства в формате <strong>ДДММГГ</strong></p>
+      <input id="pwd" type="password" placeholder="Например 010203" autocomplete="off" inputmode="numeric" />
+      <button class="btn" id="enterBtn" onclick="tryPassword()">Войти</button>
+      <div class="error" id="err"></div>
+    </div>
   </main>
 
   <!-- Главный экран (поздравление) -->
   <section id="main-screen" class="screen hidden" aria-labelledby="title-main">
-    <h1 id="title-main">С Днем Рождения! ❤️</h1>
-    <div class="birthday-text">
-        <p class="lead">Вот и настал этот день, который бывает раз в году — поздравляю тебя от всего сердца! ❤️</p>
-        
-        <p class="lead">Пусть каждая минута этого дня будет особенной и наполненной радостью. Проведи его не на диване за просмотром рилсов, а так, чтобы запомнить надолго! 😂😘</p>
-        
-        <p class="lead">Главное — найди себя в этой жизни. Найди занятие, от которого будешь нереально тащиться, чтобы жизнь не казалась рутиной, а каждое утро встречалось с улыбкой и предвкушением нового дня.</p>
-        
-        <p class="lead">Все у тебя получится — ты умничка! Никогда не сомневайся в себе, ведь сомнения порождают страх, а страх мешает двигаться вперед.</p>
-        
-        <p class="lead">Есть прекрасная фраза: <em>«Если тебя это делает счастливым, это не должно иметь смысла ни для кого другого»</em>. Поэтому похуй на чужое мнение — живи, кайфуй и будь собой!</p>
-        
-        <p class="lead">Не могу поверить, что с нашего первого знакомства прошло уже 4 года. Кажется, это было совсем недавно... Это лишний раз напоминает, что время скоротечно, и его не стоит тратить впустую.</p>
-        
-        <p class="lead signature">Крепко обнял 🥰❤️</p>
-    </div>
-    <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:14px">
-      <button class="btn" onclick="openGallery()">Посмотреть фото</button>
-      <button class="btn ghost" onclick="showHint()">Подсказка</button>
+    <div class="screen-content">
+      <h1 id="title-main">С Днем Рождения! ❤️</h1>
+      <div class="birthday-text">
+          <p class="lead">Вот и настал этот день, который бывает раз в году — поздравляю тебя от всего сердца! ❤️</p>
+          
+          <p class="lead">Пусть каждая минута этого дня будет особенной и наполненной радостью. Проведи его не на диване за просмотром рилсов, а так, чтобы запомнить надолго! 😂😘</p>
+          
+          <p class="lead">Главное — найди себя в этой жизни. Найди занятие, от которого будешь нереально тащиться, чтобы жизнь не казалась рутиной, а каждое утро встречалось с улыбкой и предвкушением нового дня.</p>
+          
+          <p class="lead">Все у тебя получится — ты умничка! Никогда не сомневайся в себе, ведь сомнения порождают страх, а страх мешает двигаться вперед.</p>
+          
+          <p class="lead">Есть прекрасная фраза: <em>«Если тебя это делает счастливым, это не должно иметь смысла ни для кого другого»</em>. Поэтому похуй на чужое мнение — живи, кайфуй и будь собой!</p>
+          
+          <p class="lead">Не могу поверить, что с нашего первого знакомства прошло уже 4 года. Кажется, это было совсем недавно... Это лишний раз напоминает, что время скоротечно, и его не стоит тратить впустую.</p>
+          
+          <p class="lead signature">Крепко обнял 🥰❤️</p>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="openGallery()">Посмотреть фото</button>
+        <button class="btn ghost" onclick="showHint()">Подсказка</button>
+      </div>
     </div>
   </section>
 
   <!-- Галерея -->
   <section id="gallery-screen" class="screen hidden" aria-hidden="true">
     <audio id="bg-music" src="Silujet.mp3" loop preload="auto"></audio>
+    <div class="screen-content">
+      <div class="slider fade-in" role="region" aria-label="Фотогалерея">
+        <button class="arrow" id="prevBtn" aria-label="Предыдущее" onclick="prevPhoto()">❮</button>
+        <img id="slide" class="slide-image" src="photo1.jpg" alt="Фото" />
+        <button class="arrow" id="nextBtn" aria-label="Следующее" onclick="nextPhoto()">❯</button>
+      </div>
 
-    <div class="slider fade-in" role="region" aria-label="Фотогалерея">
-      <button class="arrow" id="prevBtn" aria-label="Предыдущее" onclick="prevPhoto()">❮</button>
-      <img id="slide" class="slide-image" src="photo1.jpg" alt="Фото" />
-      <button class="arrow" id="nextBtn" aria-label="Следующее" onclick="nextPhoto()">❯</button>
-    </div>
-
-    <div class="controls">
-      <button class="back-btn" onclick="backToMain()">Назад</button>
+      <div class="controls">
+        <button class="back-btn" onclick="backToMain()">Назад к поздравлению</button>
+      </div>
     </div>
   </section>
 
   <!-- Нижняя панель управления музыкой -->
   <div class="audio-bar" id="audiobox" style="display:none">
     <button id="playPause" onclick="toggleMusic()" title="Пауза/воспроизвести">⏯</button>
-    <div id="trackName" style="font-size:14px;color:#333;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Музыка</div>
+    <div id="trackName" style="font-size:14px;color:#333;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Музыка</div>
   </div>
 
 <script>
+// JavaScript код остается таким же как в предыдущей версии
 /* ---------- НАСТРОЙКИ ---------- */
 const PASSWORD = "280622";
 const photos = ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg","photo7.jpg","photo8.jpg","photo9.jpg","photo10.jpg","photo11.jpg","photo12.jpg","photo13.jpg","photo14.jpg","photo15.jpg","photo16.jpg","photo17.jpg","photo18.jpg","photo19.jpg","photo20.jpg","photo21.jpg","photo22.jpg","photo23.jpg"];
